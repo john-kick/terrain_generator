@@ -9,13 +9,7 @@ public partial class CameraController : Camera3D
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-		SetInitialRotation();
 		Current = true;
-	}
-
-	private void SetInitialRotation()
-	{
-		Rotation = new Vector3(0, -135, 0);
 	}
 
 	public override void _Input(InputEvent @event)

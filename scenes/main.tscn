@@ -12,8 +12,7 @@
 Terrain = NodePath("../TerrainGenerator")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1702204829]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.974, 0.819, -0.972)
-rotation_edit_mode = 2
+transform = Transform3D(-0.70710677, 0.5276655, -0.47071135, 0, 0.6656863, 0.7462318, 0.70710677, 0.5276655, -0.47071132, -0.974, 12.939569, -0.972)
 script = ExtResource("3_tbgi4")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=236480873]
