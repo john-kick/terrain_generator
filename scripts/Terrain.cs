@@ -12,7 +12,6 @@ public partial class Terrain : MeshInstance3D
 	[Export] public bool Debug = false;
 	[Export] public Material Material;
 	[Export] public Mesh.PrimitiveType RenderType = Mesh.PrimitiveType.Triangles;
-	private bool printed = false;
 
 	private Node3D _debugContainer;
 	private DebugHandler _debugHandler;
@@ -64,14 +63,9 @@ public partial class Terrain : MeshInstance3D
 				vertices[v] = new Vector3(x * CellSize, result.Heights[v], z * CellSize);
 				normals[v] = result.Normals[v];
 				uvs[v] = new Vector2((float)x / Width, (float)z / Depth);
-				if (!printed && result.Heights[v] == x + Width + 1)
-				{
-					GD.Print($"({x}|{z}) = {result.Heights[v]}");
-				}
 				v++;
 			}
 		}
-		printed = true;
 
 		// Fill indices (Triangles)
 		// Godot uses clockwise triangles, shaders use anti-clockwise
