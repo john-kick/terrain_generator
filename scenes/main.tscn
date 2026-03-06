@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://70tby10whyy1"]
+
+[ext_resource type="PackedScene" uid="uid://c2y1srnj8gjxf" path="res://scenes/terrain.tscn" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://38fxokx7tvqt" path="res://scenes/terrain_ui.tscn" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://ccwblwy12kayx" path="res://scripts/CameraController.cs" id="3_tbgi4"]
+
+[node name="Main" type="Node3D" unique_id=771102069]
+
+[node name="TerrainGenerator" parent="." unique_id=2135761012 instance=ExtResource("1_sugp2")]
+
+[node name="CanvasLayer" parent="." unique_id=637176823 node_paths=PackedStringArray("Terrain") instance=ExtResource("2_jyhfs")]
+Terrain = NodePath("../TerrainGenerator")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1702204829]
+transform = Transform3D(1, 0, 0, 0, 0.9067425, 0.42168477, 0, -0.42168477, 0.9067425, 0, 1.3595206, 2.1877794)
+script = ExtResource("3_tbgi4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=236480873]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.5026665, -1.9681781e-07)

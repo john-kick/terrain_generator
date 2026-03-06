@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://cnmxclwyp37ja"
+path="res://.godot/imported/simplex_terrain.glsl-333ef6ab7e192b08f2ce77de5498e547.res"
+
+[deps]
+
+source_file="res://shader/compute/simplex_terrain.glsl"
+dest_files=["res://.godot/imported/simplex_terrain.glsl-333ef6ab7e192b08f2ce77de5498e547.res"]
+
+[params]
+

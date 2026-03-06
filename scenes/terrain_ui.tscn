@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://38fxokx7tvqt"]
+
+[ext_resource type="Script" uid="uid://g1c0rudtmrxm" path="res://scripts/TerrainUI.cs" id="1_8wmes"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=637176823]
+script = ExtResource("1_8wmes")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1219903782]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1015224946]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1648997264]
+layout_mode = 2
+text = "Terrain Controls"
+
+[node name="WidthLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1786609675]
+layout_mode = 2
+text = "Width"
+
+[node name="WidthSlider" type="HSlider" parent="PanelContainer/VBoxContainer" unique_id=436618389]
+layout_mode = 2
+min_value = 1.0
+max_value = 1000.0
+value = 1.0
+
+[node name="DepthLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1109949650]
+layout_mode = 2
+text = "Depth"
+
+[node name="DepthSlider" type="HSlider" parent="PanelContainer/VBoxContainer" unique_id=1188531259]
+layout_mode = 2
+min_value = 1.0
+max_value = 1000.0
+value = 1.0
+
+[node name="NoiseScaleLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1391051231]
+layout_mode = 2
+text = "Scale"
+
+[node name="NoiseScaleSlider" type="HSlider" parent="PanelContainer/VBoxContainer" unique_id=137252981]
+layout_mode = 2
+min_value = 0.01
+max_value = 5.0
+step = 0.01
+value = 0.01
+
+[node name="AmplitudeLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1650086852]
+layout_mode = 2
+text = "Amplitude"
+
+[node name="AmplitudeSlider" type="HSlider" parent="PanelContainer/VBoxContainer" unique_id=316047872]
+layout_mode = 2
+max_value = 10.0
+step = 0.01
+
+[node name="CellSizeLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1583305631]
+layout_mode = 2
+text = "Cell Size"
+
+[node name="CellSizeSlider" type="HSlider" parent="PanelContainer/VBoxContainer" unique_id=850869917]
+layout_mode = 2
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 0.1
+
+[node name="AnimateLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1704236366]
+layout_mode = 2
+text = "Animate"
+
+[node name="AnimateCheck" type="CheckBox" parent="PanelContainer/VBoxContainer" unique_id=1374418274]
+layout_mode = 2
+
+[node name="DebugLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=172275698]
+layout_mode = 2
+text = "Debug"
+
+[node name="DebugCheck" type="CheckBox" parent="PanelContainer/VBoxContainer" unique_id=744210227]
+layout_mode = 2
