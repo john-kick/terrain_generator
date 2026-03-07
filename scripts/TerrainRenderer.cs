@@ -18,10 +18,11 @@ public class TerrainRenderer
 		_heightBufferSize,
 		_normalBufferSize;
 
-	public TerrainRenderer(int width, int depth)
+	public TerrainRenderer(int width, int depth, RDShaderFile shaderFile)
 	{
 		Width = width;
 		Depth = depth;
+
 		_rd = RenderingServer.CreateLocalRenderingDevice();
 
 		_vertexCount = (Width + 1) * (Depth + 1);
@@ -33,7 +34,6 @@ public class TerrainRenderer
 		_normalBuffer = _rd.StorageBufferCreate((uint)_normalBufferSize);
 
 		// Load shader once
-		var shaderFile = GD.Load<RDShaderFile>("res://shader/compute/wave.glsl");
 		_shader = _rd.ShaderCreateFromSpirV(shaderFile.GetSpirV());
 		_pipeline = _rd.ComputePipelineCreate(_shader);
 
@@ -53,6 +53,81 @@ public class TerrainRenderer
 		normalUniform.AddId(_normalBuffer);
 
 		_uniformSet = _rd.UniformSetCreate([heightUniform, normalUniform], _shader, 0);
+	}
+
+	public ArrayMesh GenerateMesh(
+		float cellSize,
+		float scale,
+		float amplitude,
+		Vector2 offset,
+		Mesh.PrimitiveType renderType
+	) {
+		ComputeResult result = Compute(scale, amplitude, offset.X, offset.Y);
+		ArrayMesh mesh = new();
+		int numVertices = (Width + 1) * (Depth + 1);
+
+		// Define arrays
+		Vector3[] vertices = new Vector3[numVertices];
+		Vector3[] normals = new Vector3[numVertices];
+		Vector2[] uvs = new Vector2[numVertices];
+		int[] indices = new int[Width * Depth * 6];
+
+		// Fill vertices, normals and uvs
+		int v = 0;
+		for (int z = 0; z < Depth + 1; z++)
+		{
+			for (int x = 0; x < Width + 1; x++)
+			{
+				vertices[v] = new Vector3(x * cellSize, result.Heights[v], z * cellSize);
+				normals[v] = result.Normals[v];
+				uvs[v] = new Vector2((float)x / Width, (float)z / Depth);
+				v++;
+			}
+		}
+
+		// Fill indices (Triangles)
+		// Godot uses clockwise triangles, shaders use anti-clockwise
+		//
+		//  1.------- 2
+		//  |  .      |         Clockwise:          1 -> 2 -> 4, 1 -> 4 -> 3
+		//  |     .   |
+		//  |        .|         Anti-clockwise:     1 -> 4 -> 2, 1 -> 3 -> 4
+		//  3---------4
+		//
+
+		int i = 0;
+		int stride = Width + 1;
+		for (int z = 0; z < Depth; z++)
+		{
+			for (int x = 0; x < Width; x++)
+			{
+				int topLeft = z * stride + x;
+				int topRight = topLeft + 1;
+				int bottomLeft = topLeft + stride;
+				int bottomRight = bottomLeft + 1;
+
+				// Triangle 1
+				indices[i++] = topLeft;
+				indices[i++] = bottomRight;
+				indices[i++] = bottomLeft;
+
+				// Triangle 2
+				indices[i++] = topLeft;
+				indices[i++] = topRight;
+				indices[i++] = bottomRight;
+			}
+		}
+
+		// Collect arrays into the godot mesh array
+		var arrays = new Godot.Collections.Array();
+		arrays.Resize((int)Mesh.ArrayType.Max);
+		arrays[(int)Mesh.ArrayType.Vertex] = vertices;
+		arrays[(int)Mesh.ArrayType.Normal] = normals;
+		arrays[(int)Mesh.ArrayType.TexUV] = uvs;
+		arrays[(int)Mesh.ArrayType.Index] = indices;
+
+		mesh.AddSurfaceFromArrays(renderType, arrays);
+		return mesh;
 	}
 
 	/// <summary>

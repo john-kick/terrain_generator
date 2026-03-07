@@ -1,9 +1,6 @@
 [gd_scene format=3 uid="uid://38fxokx7tvqt"]
 
-[ext_resource type="Script" uid="uid://g1c0rudtmrxm" path="res://scripts/TerrainUI.cs" id="1_8wmes"]
-
 [node name="CanvasLayer" type="CanvasLayer" unique_id=637176823]
-script = ExtResource("1_8wmes")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1219903782]
 offset_right = 40.0

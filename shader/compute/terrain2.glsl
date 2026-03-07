@@ -47,12 +47,19 @@ float noise(vec2 p) {
 }
 
 vec3 normal(float fx, float fz) {
-    float hL = noise(vec2(fx - params.scale, fz)) * params.amplitude;
-    float hR = noise(vec2(fx + params.scale, fz)) * params.amplitude;
-    float hD = noise(vec2(fx, fz - params.scale)) * params.amplitude;
-    float hU = noise(vec2(fx, fz + params.scale)) * params.amplitude;
+    float step = params.scale;
 
-    return normalize(vec3(hL - hR, 2.0, hD - hU));
+    float hL = noise(vec2(fx - step, fz)) * params.amplitude;
+    float hR = noise(vec2(fx + step, fz)) * params.amplitude;
+    float hD = noise(vec2(fx, fz - step)) * params.amplitude;
+    float hU = noise(vec2(fx, fz + step)) * params.amplitude;
+
+    vec3 n;
+    n.x = hL - hR;
+    n.y = 2.0 * step;
+    n.z = hD - hU;
+
+    return normalize(n);
 }
 
 // void main() {
@@ -82,12 +89,15 @@ void main() {
     uint x = gl_GlobalInvocationID.x;
     uint z = gl_GlobalInvocationID.y;
 
+    if (x > params.width || z > params.depth)
+        return;    
+
     float fx = (float(x) + params.offsetX) * params.scale;
     float fz = (float(z) + params.offsetZ) * params.scale;
 
     uint index = z * (params.width + 1) + x;
 
-    float height = noise(vec2(fx, fz));
+    float height = noise(vec2(fx, fz)) * params.amplitude;
     heights[index] = height;
 
     vec3 normalVec = normal(fx, fz);

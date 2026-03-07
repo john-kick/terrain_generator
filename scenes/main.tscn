@@ -1,19 +1,29 @@
 [gd_scene format=3 uid="uid://70tby10whyy1"]
 
 [ext_resource type="PackedScene" uid="uid://c2y1srnj8gjxf" path="res://scenes/terrain.tscn" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://38fxokx7tvqt" path="res://scenes/terrain_ui.tscn" id="2_jyhfs"]
+[ext_resource type="Shader" uid="uid://bu1y67wseb1x4" path="res://shader/debug_shader.gdshader" id="2_sugp2"]
+[ext_resource type="RDShaderFile" uid="uid://di0gr6m4cmtqu" path="res://shader/compute/terrain2.glsl" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://ccwblwy12kayx" path="res://scripts/CameraController.cs" id="3_tbgi4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
+render_priority = 0
+shader = ExtResource("2_sugp2")
 
 [node name="Main" type="Node3D" unique_id=771102069]
 
 [node name="TerrainGenerator" parent="." unique_id=2135761012 instance=ExtResource("1_sugp2")]
-
-[node name="CanvasLayer" parent="." unique_id=637176823 node_paths=PackedStringArray("Terrain") instance=ExtResource("2_jyhfs")]
-Terrain = NodePath("../TerrainGenerator")
+Width = 50
+Depth = 50
+CellSize = 0.1
+_Scale = 0.1
+Amplitude = 0.345
+PrimitiveType = 1
+Material = SubResource("ShaderMaterial_jyhfs")
+TerrainShader = ExtResource("3_jyhfs")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1702204829]
 transform = Transform3D(-0.70710677, 0.5276655, -0.47071135, 0, 0.6656863, 0.7462318, 0.70710677, 0.5276655, -0.47071132, -0.974, 12.939569, -0.972)
 script = ExtResource("3_tbgi4")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=236480873]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.5026665, -1.9681781e-07)
+transform = Transform3D(0.5579044, 0, -0.8299052, 0.8299052, -4.3711392e-08, 0.5579044, -3.6276308e-08, -1, -2.4386777e-08, 11.258521, 20.674616, 33.691315)

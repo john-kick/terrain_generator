@@ -1,14 +1,6 @@
 [gd_scene format=3 uid="uid://c2y1srnj8gjxf"]
 
-[ext_resource type="Shader" uid="uid://bu1y67wseb1x4" path="res://shader/debug_shader.gdshader" id="2_oqplg"]
-[ext_resource type="Script" uid="uid://vk7iyahjcg40" path="res://scripts/Terrain.cs" id="3_us06m"]
+[ext_resource type="Script" uid="uid://55apjd6ast3y" path="res://scripts/TerrainManager.cs" id="1_b0j75"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vjhlg"]
-render_priority = 0
-shader = ExtResource("2_oqplg")
-
-[node name="Terrain" type="MeshInstance3D" unique_id=1529518880]
-script = ExtResource("3_us06m")
-Material = SubResource("ShaderMaterial_vjhlg")
-
-[node name="DebugContainer" type="Node3D" parent="." unique_id=808384735]
+[node name="TerrainManager" type="Node3D" unique_id=1232996787]
+script = ExtResource("1_b0j75")
